@@ -13,17 +13,17 @@ app.configure(function() {
   app.use(express.bodyParser());
   app.use(express.static(__dirname + '/public'));
   app.use(express.cookieParser('shhhh, very secret'));
-  app.use(express.session());
+    app.use(express.session());
 });
 
-app.get('/', handler.renderIndex);
-app.get('/create', handler.renderIndex);
+app.get('/', util.checkUser, handler.renderIndex);
+// app.get('/create', handler.renderIndex);
 
-app.get('/links', handler.fetchLinks);
-app.post('/links', handler.saveLink);
+app.get('/links', util.checkUser, handler.fetchLinks);
+app.post('/links', util.checkUser, handler.saveLink);
 
-// app.get('/login', handler.loginUserForm);
-// app.post('/login', handler.loginUser);
+app.get('/login', handler.loginUserForm);
+app.post('/login', handler.loginUser);
 app.get('/logout', handler.logoutUser);
 
 app.get('/signup', handler.signupUserForm);

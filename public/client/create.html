@@ -6,12 +6,11 @@
   <a href='/logout' class='logout'>Logout</a>
 </div>
 
-<div id='container'></div>
-<button ng-click="x = 'createdAt'" class="date sort">Date</button>
-<button ng-click="x = 'visits'" class="visit sort">Visits</button>
-<button ng-click="reverse = true" class="ascending sort">^</button>
-<button ng-click="reverse = false" class="descending sort">v</button>
-<div class='info link' ng-repeat="link in links | orderBy:x:reverse">
+<form>
+    <input class='text' type='text' name='url' ng-model="newURL">
+    <input type='submit' value='Shorten' ng-click="postLinks()">
+</form>
+<div class='info link' ng-show="showLink">
 <img src='/redirect_icon.png'/>
   <div class='visits'><span class='count'>{{link.visits}}</span>Visits</div>
   <div class='title'>{{link.title}}</div>
@@ -19,3 +18,6 @@
   <div class='date visits' >{{link.createdAt | date: "mediumDate"}}</div>
   <a href='{{link.base_url}}/{{link.code}}'>{{link.base_url}}/{{link.code}}</a>
 </div>
+
+<img ng-show='spinning'  class='spinner' src='spiffygif_46x46.gif'>
+<div class='message'></div>
